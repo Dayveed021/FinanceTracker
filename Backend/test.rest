@@ -1,0 +1,86 @@
+POST http://127.0.0.1:8000/users/login
+Content-Type: application/json
+
+{"username": "etibaba", "password": "123456"}
+
+###
+
+POST http://127.0.0.1:8000/users/signup
+Content-Type: application/json
+
+{"username": "etibaba", "password":"123456", "email": "etibaba@gmail.com"}
+
+
+###
+
+GET http://127.0.0.1:8000/users/test_token
+Content-Type: application/json
+Authorization: Token 46c991d10b967da4f319a4301526242431863b16
+
+###
+
+PUT http://127.0.0.1:8000/users/update/4
+Content-Type: application/json
+Authorization: Token 630c05c5d0238bf8b0ade5d0dbb41011f3f5afde
+
+{
+  "username" : "etibabs",
+  "email": "etibabs@example.com",
+  "password": "1234567"
+}
+
+###
+
+DELETE http://127.0.0.1:8000/users/delete/2/
+Authorization: Token 46c991d10b967da4f319a4301526242431863b16
+
+
+
+
+@base_url =  http://127.0.0.1:8000 
+
+
+
+### Transaction Requests ###
+
+# List transactions (GET request, requires authentication)
+POST {{base_url}}/transactions/
+Content-Type: application/json
+Authorization: Token e25c72cd58cdecb5001a47e772c75ef0bde9f3d1
+
+###
+# Create a new transaction (POST request, requires authentication)
+POST {{base_url}}/transactions/
+Content-Type: application/json
+Authorization: Token e25c72cd58cdecb5001a47e772c75ef0bde9f3d1
+
+{  
+  "amount": "100.50",
+  "type": "expense",
+  "category": "food",
+  "date": "2024-06-22",
+  "description": "Dinner"
+}
+
+# Retrieve a specific transaction (GET request, requires authentication)
+GET {{base_url}}/transactions/1/  # Replace '1' with the actual transaction ID
+Authorization: e25c72cd58cdecb5001a47e772c75ef0bde9f3d1
+
+# Update a specific transaction (PUT request, requires authentication)
+PUT {{base_url}}/transactions/1/  # Replace '1' with the actual transaction ID
+Content-Type: application/json
+Authorization: e25c72cd58cdecb5001a47e772c75ef0bde9f3d1
+
+{
+  "amount": 120.00,
+  "type": "income",
+  "category": "salary",
+  "date": "2024-06-23",
+  "description": "Monthly salary"
+}
+
+# Delete a specific transaction (DELETE request, requires authentication)
+DELETE {{base_url}}/transactions/1/  # Replace '1' with the actual transaction ID
+Authorization: e25c72cd58cdecb5001a47e772c75ef0bde9f3d1
+
+

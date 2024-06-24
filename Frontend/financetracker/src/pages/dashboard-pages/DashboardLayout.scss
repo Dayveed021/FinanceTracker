@@ -1,0 +1,17 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.active {
+  background-color: #f28b40;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+.not-active {
+  background-color: transparent;
+  color: white;
+  text-decoration: none;
+}

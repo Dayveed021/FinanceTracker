@@ -1,0 +1,96 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.auth-input {
+  outline: none;
+  border: #a2a2a2;
+  background: #b6b6b6;
+  border-radius: 10px;
+  height: 50px;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  letter-spacing: 1.5px;
+}
+
+input {
+  outline: none;
+  border: #a2a2a2;
+  background: #d7d7d7;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+button {
+  border: none;
+}
+
+.link {
+  text-decoration: none;
+}
+// Mixin definition
+@mixin responsive-font-size(
+  $min-font-size,
+  $max-font-size,
+  $min-screen-width,
+  $max-screen-width
+) {
+  $font-size-range: $max-font-size - $min-font-size;
+  $screen-width-range: $max-screen-width - $min-screen-width;
+
+  font-size: calc(
+    #{$min-font-size}px + #{$font-size-range} * ((
+            100vw - #{$min-screen-width}px
+          ) / #{$screen-width-range})
+  );
+}
+
+// Applying the mixin to various tags
+p {
+  @include responsive-font-size(13, 20, 320, 2000);
+}
+
+ul {
+  @include responsive-font-size(12, 16, 320, 1200);
+}
+
+li {
+  @include responsive-font-size(16, 16, 320, 1200);
+}
+
+h1 {
+  @include responsive-font-size(24, 36, 320, 1200);
+}
+
+h3 {
+  @include responsive-font-size(16, 30, 320, 5000);
+}
+h4 {
+  @include responsive-font-size(14, 30, 320, 6000);
+}
+
+h2 {
+  @include responsive-font-size(20, 30, 320, 1500);
+}
+
+span {
+  @include responsive-font-size(13, 16, 320, 1800);
+}
+
+// main {
+//   @include responsive-font-size(18, 24, 320, 1200);
+// }
+
+// header {
+//   @include responsive-font-size(18, 26, 320, 1200);
+// }
+
+// caption {
+//   @include responsive-font-size(14, 18, 320, 1200);
+// }
+
+/* Add more styles for other tags as needed */
