@@ -9,6 +9,8 @@ const initialState = {
   isError: false,
   isLoading: false,
   isSuccess: false,
+  isLoginSuccess: false, // specific flag for login success
+  isUpdateSuccess: false,
   message: "",
 };
 
@@ -97,7 +99,7 @@ export const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
+        state.isLoginSuccess = true;
         state.user = action.payload;
       })
       .addCase(login.rejected, (state, action) => {
@@ -111,7 +113,7 @@ export const authSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
+        state.isUpdateSuccess = true;
         state.user = action.payload;
       })
       .addCase(updateUser.rejected, (state, action) => {
@@ -125,5 +127,6 @@ export const authSlice = createSlice({
       });
   },
 });
+
 export const { reset } = authSlice.actions;
 export default authSlice.reducer;

@@ -8,7 +8,7 @@ const Navbar = () => {
     <div className="w-full text-black bg-gray-600">
       <div className=" flex items-center justify-between w-full p-8">
         <div className="flex items-center justify-center gap-2 ">
-          <h1 className=" logo font-semibold text-[25px] text-[#f28b40]">
+          <h1 className=" logo font-semibold text-[25px] text-[#f28b40] hidden md:block">
             FINANCE TRACKER{" "}
           </h1>
           <Icon

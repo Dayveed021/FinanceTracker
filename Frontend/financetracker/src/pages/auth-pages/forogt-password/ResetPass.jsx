@@ -7,13 +7,13 @@ const ResetPass = () => {
     <div>
       <Navbar />
       <div className="justify-center items-center flex pt-32">
-        <div className="shadow-lg  w-[500px] p-4 pb-20 rounded-2xl">
+        <div className="md:shadow-lg w-full  md:w-[500px] p-4 pb-20 rounded-2xl">
           <div className="flex justify-center gap-4 items-center pt-4  ">
             <Icon
               icon="uil:focus-target"
               style={{ color: "black", width: "40px", height: "40px" }}
             />
-            <h2>Login</h2>
+            <h2>Reset Password</h2>
           </div>
           <div>
             <form
@@ -36,6 +36,12 @@ const ResetPass = () => {
                   className="auth-input"
                 />
               </div>
+              <button
+                className="bg-[#f28b40] w-fit p-2 flex items-center justify-center gap-1 font-medium rounded-md mt-4"
+                type="submit"
+              >
+                <span>Update Password</span>
+              </button>
             </form>
           </div>
         </div>

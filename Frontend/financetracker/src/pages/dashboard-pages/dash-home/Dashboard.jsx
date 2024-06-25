@@ -14,13 +14,17 @@ const Dashboard = () => {
 export default Dashboard;
 
 const Content = () => {
-  const { user } = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.auth.user);
+
+  const username = user?.user?.username
+    ? user.user.username.charAt(0).toUpperCase() + user.user.username.slice(1)
+    : "Guest";
 
   return (
     <div className="text-white">
       <div className="flex justify-between w-full">
         <div className="flex items-start justify-center gap-2 flex-col">
-          <h2>Welcome {user?.user?.username},</h2>
+          <h2>Welcome {username},</h2>
           <span>You can see an overview of all your expenses below:</span>
         </div>
         <div>

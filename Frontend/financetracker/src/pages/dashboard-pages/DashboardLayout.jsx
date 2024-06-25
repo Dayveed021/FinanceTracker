@@ -2,8 +2,17 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./DashboardLayout.scss";
+import { logout } from "../../redux/auth/AuthSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const DashboardLayout = ({ content }) => {
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.auth.user);
+
+  const logOut = () => {
+    dispatch(logout());
+  };
   return (
     <div className=" w-full p-3 flex items-start justify-center gap-5 flex-col">
       <header className=" w-full flex items-center justify-center gap-8">
@@ -13,22 +22,22 @@ const DashboardLayout = ({ content }) => {
             style={{ color: "#f28b40", width: "40px", height: "40px" }}
           />
         </div>
-        <div className=" w-full flex items-center justify-between gap-20 h-20 shadow-[#f28b40] shadow-sm rounded-xl pr-10 border-t border-t-[#f28b40] bg-gray-600">
+        <div className="w-full flex items-center justify-between gap-20 h-20  shadow-[#f28b40] shadow-sm rounded-xl pr-10 border-t border-t-[#f28b40] bg-gray-600">
           <p></p>
-          <div className="w-[90%] flex items-center justify-center">
+          <div className="md:w-[90%] sm:w-[50%] hidden  sm:flex items-center justify-center">
             <input
               type="text"
               placeholder="Search transactions"
-              className="w-[45%] text-[14px] tracking-[1.2px]"
+              className="lg:w-[45%] w-full text-[14px] tracking-[1.2px]"
             />
           </div>
           <div className="flex items-center justify-center rounded-full bg-black h-10 w-10 text-white">
-            D
+            {user?.user.username.charAt(0).toUpperCase()}
           </div>
         </div>
       </header>
       <div className=" w-full flex items-start justify-center gap-5">
-        <div className="flex item-start justify-center shadow-[#f28b40] shadow-sm w-[250px] rounded-xl h-[84vh] bg-gray-600">
+        <div className="flex item-start justify-between shadow-[#f28b40] shadow-sm w-[250px] rounded-xl h-[84vh] bg-gray-600 flex-col">
           <ul className=" w-full pt-10 flex item-start justify-start flex-col list-none gap-4 p-3">
             <NavLink
               to="/home"
@@ -53,6 +62,13 @@ const DashboardLayout = ({ content }) => {
               </li>
             </NavLink>
           </ul>
+          <div
+            className="flex items-center justify-start gap-2 pb-5 pl-3 cursor-pointer w-fit"
+            onClick={logOut}
+          >
+            <Icon icon="solar:logout-2-bold" style={{ color: "white" }} />
+            <span className="text-white">Logout</span>
+          </div>
         </div>
         <div className="w-full h-[84vh]  shadow-[#f28b40] shadow-sm rounded-xl  bg-gray-600 p-5">
           {content}

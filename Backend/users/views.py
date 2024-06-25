@@ -41,7 +41,7 @@ def test_token(request):
     return Response({"passed for {}".format(request.user.email)})
 
 
-@api_view(['PUT'])
+@api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
 def update_user(request, pk):
     user = get_object_or_404(User, pk=pk)

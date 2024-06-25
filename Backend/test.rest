@@ -8,7 +8,7 @@ Content-Type: application/json
 POST http://127.0.0.1:8000/users/signup
 Content-Type: application/json
 
-{"username": "etibaba", "password":"123456", "email": "etibaba@gmail.com"}
+{"username": "lovelace", "password":"123456", "email": "lace@gmail.com"}
 
 
 ###
@@ -19,14 +19,13 @@ Authorization: Token 46c991d10b967da4f319a4301526242431863b16
 
 ###
 
-PUT http://127.0.0.1:8000/users/update/4
+PATCH http://127.0.0.1:8000/users/update/11
 Content-Type: application/json
-Authorization: Token 630c05c5d0238bf8b0ade5d0dbb41011f3f5afde
+Authorization: Token 5af400d01d3d2950640e277fec82bac4da4c315f
 
 {
-  "username" : "etibabs",
-  "email": "etibabs@example.com",
-  "password": "1234567"
+  "username": "loveshoe",
+  "email": "shoe@example.com",
 }
 
 ###

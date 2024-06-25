@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../../layouts/navbar/Navbar";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-import { register, reset } from "../../redux/auth/AuthSlice";
+import { register, reset } from "../../../redux/auth/AuthSlice";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -59,7 +59,7 @@ const Register = () => {
     <div>
       <Navbar />
       <div className="justify-center items-center flex pt-16">
-        <div className="shadow-lg  w-[500px] p-4 pb-16 rounded-2xl">
+        <div className="md:shadow-lg w-full  md:w-[500px] p-4 pb-16 rounded-2xl">
           <div className="flex justify-center gap-4 items-center pt-4  ">
             <Icon
               icon="uil:focus-target"

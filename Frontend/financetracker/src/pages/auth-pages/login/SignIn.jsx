@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useEffect, useState } from "react";
 import Navbar from "../../../layouts/navbar/Navbar";
 import { Link, useNavigate } from "react-router-dom";
-import { reset, login } from "../../redux/auth/AuthSlice";
+import { reset, login } from "../../../redux/auth/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -14,22 +14,21 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
+  const { user, isLoginSuccess, isLoading, isError, isSuccess, message } =
+    useSelector((state) => state.auth);
 
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
 
-    if (isSuccess) {
+    if (isLoginSuccess) {
       toast.success("Logged in Successfully");
       navigate("/home");
+      dispatch(reset());
     }
-
     dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch]);
+  }, [user, isError, isLoginSuccess, message, navigate, dispatch]);
 
   const LogUser = (e) => {
     e.preventDefault();
@@ -49,7 +48,7 @@ const SignIn = () => {
     <div>
       <Navbar />
       <div className="justify-center items-center flex pt-32">
-        <div className="shadow-lg  w-[500px] p-4 pb-20 rounded-2xl">
+        <div className="md:shadow-lg w-full  md:w-[500px] p-4 pb-20 rounded-2xl">
           <div className="flex justify-center gap-4 items-center pt-4  ">
             <Icon
               icon="uil:focus-target"
