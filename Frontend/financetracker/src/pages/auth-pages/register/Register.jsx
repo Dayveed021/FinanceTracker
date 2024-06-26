@@ -7,8 +7,8 @@ import { register, reset } from "../../../redux/auth/AuthSlice";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const [seePass, setSeePass] = useState("false");
-  const [seePass1, setSeePass1] = useState("false");
+  const [seePass, setSeePass] = useState(false);
+  const [seePass1, setSeePass1] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");

@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const SignIn = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [seePass, setSeePass] = useState("false");
+  const [seePass, setSeePass] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

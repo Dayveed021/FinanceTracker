@@ -35,6 +35,7 @@ const Content = () => {
 
     if (isUpdateSuccess) {
       toast.success("Profile Updated");
+      dispatch(reset());
       navigate("/home");
     }
     dispatch(reset());

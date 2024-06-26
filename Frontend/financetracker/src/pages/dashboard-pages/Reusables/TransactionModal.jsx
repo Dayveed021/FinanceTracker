@@ -112,7 +112,7 @@ const TransactionModal = ({ arg }) => {
                 <option value="LifeStyle">LifeStyle</option>
                 <option value="Savings">Savings</option>
                 <option value="Gift">Gift</option>
-                <option value="Miscellanous">Miscellaneous</option>
+                <option value="Miscellaneous">Miscellaneous</option>
               </select>
             </div>
             <div className="w-full flex items-start justify-center gap-1 flex-col">
