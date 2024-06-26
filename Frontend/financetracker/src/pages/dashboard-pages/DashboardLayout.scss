@@ -15,3 +15,26 @@
   color: white;
   text-decoration: none;
 }
+
+.sidebar {
+  display: block;
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+  @media screen and (max-width: 800px) {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    animation: slideIn 0.5s ease-in-out forwards;
+    z-index: 100;
+    background-color: rgb(156, 156, 156);
+    color: black;
+    @keyframes slideIn {
+      from {
+        transform: translateX(-100%);
+      }
+
+      to {
+        transform: translateX(0%);
+      }
+    }
+  }
+}

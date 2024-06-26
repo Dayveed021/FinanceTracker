@@ -1,11 +1,16 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./DashboardLayout.scss";
 import { logout } from "../../redux/auth/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const DashboardLayout = ({ content }) => {
+  const [toggle, setToggle] = useState(true);
+
+  function toggleMenu() {
+    setToggle(!toggle);
+  }
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
@@ -15,14 +20,17 @@ const DashboardLayout = ({ content }) => {
   };
   return (
     <div className=" w-full p-3 flex items-start justify-center gap-5 flex-col">
-      <header className=" w-full flex items-center justify-center gap-8">
-        <div className="flex items-center justify-center p-3 w-fit rounded-xl shadow-[#f28b40] shadow-sm ml-10 bg-gray-600">
+      <header className=" w-full flex items-center justify-center sm:gap-8 gap-4">
+        <div
+          className="flex items-center justify-center p-3 w-fit rounded-xl shadow-[#f28b40] shadow-sm md:ml-10 bg-gray-600 cursor-pointer"
+          onClick={toggleMenu}
+        >
           <Icon
             icon="uil:focus-target"
             style={{ color: "#f28b40", width: "40px", height: "40px" }}
           />
         </div>
-        <div className="w-full flex items-center justify-between gap-20 h-20  shadow-[#f28b40] shadow-sm rounded-xl pr-10 border-t border-t-[#f28b40] bg-gray-600">
+        <div className="w-full flex items-center justify-between gap-20 sm:h-20 h-16  shadow-[#f28b40] shadow-sm rounded-xl sm:pr-10 pr-4 border-t border-t-[#f28b40] bg-gray-600">
           <p></p>
           <div className="md:w-[90%] sm:w-[50%] hidden  sm:flex items-center justify-center">
             <input
@@ -36,8 +44,12 @@ const DashboardLayout = ({ content }) => {
           </div>
         </div>
       </header>
-      <div className=" w-full flex items-start justify-center gap-5">
-        <div className="flex item-start justify-between shadow-[#f28b40] shadow-sm w-[250px] rounded-xl h-[84vh] bg-gray-600 flex-col">
+      <div className=" w-full flex items-start justify-center gap-5 relative">
+        <div
+          className={` flex item-start justify-between shadow-[#f28b40] shadow-sm w-[250px] md:bg-gray-600 rounded-xl h-[84vh] flex-col ${
+            toggle ? "sidebar" : " hidden"
+          }`}
+        >
           <ul className=" w-full pt-10 flex item-start justify-start flex-col list-none gap-4 p-3">
             <NavLink
               to="/home"
@@ -70,7 +82,7 @@ const DashboardLayout = ({ content }) => {
             <span className="text-white">Logout</span>
           </div>
         </div>
-        <div className="w-full h-[84vh]  shadow-[#f28b40] shadow-sm rounded-xl  bg-gray-600 p-5">
+        <div className="w-full h-[84vh]  shadow-[#f28b40] shadow-sm rounded-xl  bg-gray-600 p-5 overflow-auto">
           {content}
         </div>
       </div>
