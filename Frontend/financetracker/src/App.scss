@@ -69,6 +69,7 @@ h1 {
 h3 {
   @include responsive-font-size(16, 30, 320, 5000);
 }
+
 h4 {
   @include responsive-font-size(14, 30, 320, 6000);
 }

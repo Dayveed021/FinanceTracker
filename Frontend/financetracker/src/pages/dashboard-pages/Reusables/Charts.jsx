@@ -1,5 +1,6 @@
 import React from "react";
 import { Bar, Pie } from "react-chartjs-2";
+import "./Charts.scss";
 import {
   Chart,
   ArcElement,
@@ -145,7 +146,7 @@ const Charts = ({ transactions }) => {
           "rgba(75, 192, 192)",
           "rgba(255, 99, 132)",
           "rgba(54, 162, 235)",
-          "rgba(44, 122, 135)",
+          "rgb(164, 69, 187)",
           "rgba(255, 205, 86)",
         ],
         borderColor: [
@@ -215,28 +216,28 @@ const Charts = ({ transactions }) => {
   };
 
   return (
-    <div className="flex items-center justify-start md:justify-between w-full gap-8">
+    <div className="flex items-center  flex-col lg:flex-row justify-center lg:justify-between w-full gap-8 overflow-auto">
       <div className="w-full flex items-center justify-center flex-col">
-        <h2 className="text-center text-xl font-semibold">
+        <h3 className="text-center font-semibold">
           Average Money Spent and Received
-        </h2>
-        <div className="h-[200px] w-[400px]">
+        </h3>
+        <div className="h-[200px] w-[400px] chart">
           <Bar data={averageData} options={options} />
         </div>
       </div>
       <div className="w-full flex items-center justify-center flex-col">
-        <h2 className="text-center text-xl font-semibold">
+        <h3 className="text-center font-semibold">
           Total Money Spent and Received
-        </h2>
-        <div className="h-[200px] w-[400px]">
+        </h3>
+        <div className="h-[200px] w-[400px] chart">
           <Bar data={totalData} options={options} className="h-full" />
         </div>
       </div>
       <div className="w-full flex items-center justify-center flex-col">
-        <h2 className="text-center text-xl font-semibold">
+        <h3 className="text-center font-semibold">
           Total Money on each Category
-        </h2>
-        <div className="h-[300px] w-[300px]">
+        </h3>
+        <div className="h-[300px] w-[300px] chart">
           <Pie data={pieData} options={pieOptions} />
         </div>
       </div>
