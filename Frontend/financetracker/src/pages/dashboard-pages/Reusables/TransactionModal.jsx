@@ -4,22 +4,31 @@ import { useNavigate } from "react-router-dom";
 import {
   reset,
   createTransaction,
-  getAllTransaction,
-  getATransaction,
+  updateTransaction,
 } from "../../../redux/transactions/TransactionSlice";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const TransactionModal = ({ arg }) => {
-  const [amount, setAmount] = useState("");
-  const [type, setType] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
+const TransactionModal = ({ arg, editMode = false, transactionData = {} }) => {
+  const [amount, setAmount] = useState(
+    transactionData ? transactionData.amount : ""
+  );
+  const [type, setType] = useState(transactionData ? transactionData.type : "");
+  const [category, setCategory] = useState(
+    transactionData ? transactionData.category : ""
+  );
+  const [description, setDescription] = useState(
+    transactionData ? transactionData.description : ""
+  );
+  const [date, setDate] = useState(transactionData ? transactionData.date : "");
 
   const { isLoading, isSuccess, isError, message } = useSelector(
     (state) => state.transac
   );
+
+  const handleRefresh = () => {
+    window.location.reload();
+  };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,13 +39,13 @@ const TransactionModal = ({ arg }) => {
     }
 
     if (isSuccess) {
-      toast.success("Transaction Added");
+      toast.success(editMode ? "Transaction Updated" : "Transaction Added");
       arg();
     }
     dispatch(reset());
-  }, [isError, isSuccess, message, navigate, dispatch, arg]);
+  }, [isError, isSuccess, message, navigate, dispatch, arg, editMode]);
 
-  function handleCreate(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const transData = {
@@ -46,19 +55,30 @@ const TransactionModal = ({ arg }) => {
       description,
       date,
     };
-    dispatch(createTransaction(transData));
-  }
+
+    const transId = transactionData.id;
+
+    if (editMode) {
+      // Ensure the ID is included for updates
+      dispatch(updateTransaction(transId, transData));
+    } else {
+      dispatch(createTransaction(transData));
+    }
+    // handleRefresh();
+  };
 
   return (
     <div className="justify-center items-center flex pt-32">
-      <div className="md:shadow-lg w-full  md:w-[500px] p-4 pb-10 rounded-2xl bg-white">
+      <div className="md:shadow-lg w-full md:w-[500px] p-4 pb-10 rounded-2xl bg-white">
         <div className="w-full flex items-center justify-between">
           <div className="flex justify-center gap-4 items-center pt-4">
             <Icon
               icon="uil:focus-target"
               style={{ color: "black", width: "40px", height: "40px" }}
             />
-            <h2 className="text-black">Add Transaction</h2>
+            <h2 className="text-black">
+              {editMode ? "Edit Transaction" : "Add Transaction"}
+            </h2>
           </div>
           <Icon
             icon="iconoir:cancel"
@@ -70,7 +90,7 @@ const TransactionModal = ({ arg }) => {
         <div>
           <form
             action=""
-            onSubmit={handleCreate}
+            onSubmit={handleSubmit}
             className="pt-9 flex justify-center items-center gap-4 flex-col w-full text-black"
           >
             <div className="w-full flex items-start justify-center gap-1 flex-col">
@@ -139,7 +159,9 @@ const TransactionModal = ({ arg }) => {
               className="bg-[#f28b40] w-fit p-2 flex items-center justify-center gap-1 font-medium rounded-md mt-4"
               type="submit"
             >
-              <span>Create Transaction</span>
+              <span>
+                {editMode ? "Update transaction" : "Create transaction"}
+              </span>
             </button>
           </form>
         </div>

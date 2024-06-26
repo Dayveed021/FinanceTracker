@@ -27,9 +27,19 @@ const geta_trans = axios.create({
   baseURL: "http://localhost:8000/",
 });
 
-const updatea_trans = async (transData) => {
+const updatea_trans = async (transId, transData) => {
   const user_token = JSON.parse(localStorage.getItem("token"));
-  const response = await axios.put(GET_A_TRANSAC, transData, {
+  const response = await axios.put(`${TRANSAC_API}${transId}/`, transData, {
+    headers: {
+      Authorization: `Token ${user_token}`,
+    },
+  });
+  return response.data;
+};
+
+const delete_trans = async (transId) => {
+  const user_token = JSON.parse(localStorage.getItem("token"));
+  const response = await axios.delete(`${TRANSAC_API}${transId}/`, {
     headers: {
       Authorization: `Token ${user_token}`,
     },
@@ -42,6 +52,7 @@ const transactionService = {
   getall_trans,
   geta_trans,
   updatea_trans,
+  delete_trans,
 };
 
 export default transactionService;

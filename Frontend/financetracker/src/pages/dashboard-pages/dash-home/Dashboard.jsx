@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import DashboardLayout from "../DashboardLayout";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getAllTransaction,
-  getATransaction,
-} from "../../../redux/transactions/TransactionSlice";
+import { getAllTransaction } from "../../../redux/transactions/TransactionSlice";
 import TransactionModal from "../Reusables/TransactionModal";
 import "./Dashboard.scss";
 import TransactionTable from "../Reusables/TransactionTable";
@@ -25,9 +22,13 @@ const Content = () => {
   const user = useSelector((state) => state.auth.user);
 
   const [modal, setModal] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
   function handleModal() {
     setModal(!modal);
+    setEditMode(false);
+    setSelectedTransaction(null);
   }
 
   const dispatch = useDispatch();
@@ -76,9 +77,15 @@ const Content = () => {
         </div>
       </div>
       {modal && <div className="modal-overlay" onClick={handleModal}></div>}
-      <div className="relative w-full flex items-end justify-center z-10">
+      <div className="absolute w-full flex items-end justify-center z-10">
         <div className="absolute w-full">
-          {modal && <TransactionModal arg={handleModal} />}
+          {modal && (
+            <TransactionModal
+              arg={handleModal}
+              editMode={editMode}
+              transactionData={selectedTransaction}
+            />
+          )}
         </div>
       </div>
     </div>

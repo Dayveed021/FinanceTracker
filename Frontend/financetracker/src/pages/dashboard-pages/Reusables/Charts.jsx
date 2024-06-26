@@ -21,14 +21,13 @@ Chart.register(
 );
 
 const Charts = ({ transactions }) => {
-  if (!transactions) {
-    return <div>Loading...</div>; // Handle loading state if transactions are null/undefined
+  if (!Array.isArray(transactions)) {
+    transactions = [];
   }
-  // Filter transactions based on type
+
   const incomeTransactions = transactions.filter((t) => t.type === "Income");
   const expenseTransactions = transactions.filter((t) => t.type === "Expense");
 
-  // Calculate total and average amounts
   const totalIncome = incomeTransactions.reduce(
     (sum, t) => sum + parseFloat(t.amount),
     0
@@ -40,23 +39,6 @@ const Charts = ({ transactions }) => {
   const averageIncome = totalIncome / incomeTransactions.length || 0;
   const averageExpense = totalExpense / expenseTransactions.length || 0;
 
-  // Aggregate data by category for pie charts
-  const categories = {
-    Investment: { total: 0, count: 0 },
-    Lifestyle: { total: 0, count: 0 },
-    Savings: { total: 0, count: 0 },
-    Miscellaneous: { total: 0, count: 0 },
-    Gift: { total: 0, count: 0 },
-  };
-
-  transactions.forEach((transaction) => {
-    if (categories.hasOwnProperty(transaction.category)) {
-      categories[transaction.category].total += parseFloat(transaction.amount);
-      categories[transaction.category].count += 1;
-    }
-  });
-
-  // Data for the bar charts
   const averageData = {
     labels: ["Average"],
     datasets: [
@@ -66,6 +48,7 @@ const Charts = ({ transactions }) => {
         backgroundColor: "rgba(75, 192, 192 )",
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
+        barThickness: 100,
       },
       {
         label: "Average Expense",
@@ -73,6 +56,7 @@ const Charts = ({ transactions }) => {
         backgroundColor: "rgba(255, 99, 132 )",
         borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: 1,
+        barThickness: 100,
       },
     ],
   };
@@ -86,6 +70,7 @@ const Charts = ({ transactions }) => {
         backgroundColor: "rgba(75, 192, 192 )",
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
+        barThickness: 100,
       },
       {
         label: "Total Expense",
@@ -93,99 +78,9 @@ const Charts = ({ transactions }) => {
         backgroundColor: "rgba(255, 99, 132 )",
         borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: 1,
+        barThickness: 100,
       },
     ],
-  };
-
-  const categoryData = {
-    Investment: {
-      average: categories.Investment.count
-        ? categories.Investment.total / categories.Investment.count
-        : 0,
-      total: categories.Investment.total,
-    },
-    Lifestyle: {
-      average: categories.Lifestyle.count
-        ? categories.Lifestyle.total / categories.Lifestyle.count
-        : 0,
-      total: categories.Lifestyle.total,
-    },
-    Savings: {
-      average: categories.Savings.count
-        ? categories.Savings.total / categories.Savings.count
-        : 0,
-      total: categories.Savings.total,
-    },
-    Gift: {
-      average: categories.Gift.count
-        ? categories.Gift.total / categories.Gift.count
-        : 0,
-      total: categories.Gift.total,
-    },
-    Miscellaneous: {
-      average: categories.Miscellaneous.count
-        ? categories.Miscellaneous.total / categories.Miscellaneous.count
-        : 0,
-      total: categories.Miscellaneous.total,
-    },
-  };
-
-  const pieData = {
-    labels: ["Investment", "Lifestyle", "Savings", "Gift", "Miscellaneous"],
-    datasets: [
-      {
-        label: "Total Amount Spent by Category",
-        data: [
-          categoryData.Investment.total,
-          categoryData.Lifestyle.total,
-          categoryData.Savings.total,
-          categoryData.Gift.total,
-          categoryData.Miscellaneous.total,
-        ],
-        backgroundColor: [
-          "rgba(75, 192, 192)",
-          "rgba(255, 99, 132)",
-          "rgba(54, 162, 235)",
-          "rgb(164, 69, 187)",
-          "rgba(255, 205, 86)",
-        ],
-        borderColor: [
-          "rgba(75, 192, 192, 1)",
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 205, 86, 1)",
-        ],
-        borderWidth: 0,
-        border: false,
-      },
-    ],
-  };
-
-  const pieOptions = {
-    plugins: {
-      legend: {
-        labels: {
-          color: "white",
-        },
-      },
-      tooltip: {
-        titleColor: "white",
-        bodyColor: "white",
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
-      },
-    },
-    scales: {
-      x: {
-        ticks: {
-          display: false,
-        },
-      },
-      y: {
-        ticks: {
-          display: false,
-        },
-      },
-    },
   };
 
   const options = {
@@ -215,16 +110,92 @@ const Charts = ({ transactions }) => {
     },
   };
 
+  const calculateTotalsAndAverages = (transactions, type) => {
+    const grouped = transactions.reduce((acc, t) => {
+      if (!acc[t.category]) {
+        acc[t.category] = [];
+      }
+      acc[t.category].push(parseFloat(t.amount));
+      return acc;
+    }, {});
+
+    const totalsAndAverages = Object.keys(grouped).map((category) => {
+      const total = grouped[category].reduce((sum, amount) => sum + amount, 0);
+      const average = total / grouped[category].length || 0;
+      return {
+        category,
+        total,
+        average,
+        type,
+      };
+    });
+
+    return totalsAndAverages;
+  };
+
+  // Calculate totals and averages for income and expense transactions
+  const incomeData = calculateTotalsAndAverages(incomeTransactions, "Income");
+  const expenseData = calculateTotalsAndAverages(
+    expenseTransactions,
+    "Expense"
+  );
+
+  // Merge income and expense data
+  const categories = [
+    ...new Set([
+      ...incomeData.map((d) => d.category),
+      ...expenseData.map((d) => d.category),
+    ]),
+  ];
+
+  const chartData = {
+    labels: categories,
+    datasets: [
+      {
+        label: "Total Income",
+        data: categories.map(
+          (cat) => incomeData.find((d) => d.category === cat)?.total || 0
+        ),
+        backgroundColor: "rgba(75, 192, 192, 0.6)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+        barThickness: 10,
+      },
+      {
+        label: "Total Expense",
+        data: categories.map(
+          (cat) => expenseData.find((d) => d.category === cat)?.total || 0
+        ),
+        backgroundColor: "rgba(255, 99, 132, 0.6)",
+        borderColor: "rgba(255, 99, 132, 1)",
+        borderWidth: 1,
+        barThickness: 10,
+      },
+      {
+        label: "Average Income",
+        data: categories.map(
+          (cat) => incomeData.find((d) => d.category === cat)?.average || 0
+        ),
+        backgroundColor: "rgba(54, 162, 235, 0.6)",
+        borderColor: "rgba(54, 162, 235, 1)",
+        borderWidth: 1,
+        barThickness: 10,
+      },
+      {
+        label: "Average Expense",
+        data: categories.map(
+          (cat) => expenseData.find((d) => d.category === cat)?.average || 0
+        ),
+        backgroundColor: "rgba(255, 206, 86, 0.6)",
+        borderColor: "rgba(255, 206, 86, 1)",
+        borderWidth: 1,
+        barThickness: 10,
+      },
+    ],
+  };
+
   return (
-    <div className="flex items-center  flex-col lg:flex-row justify-center lg:justify-between w-full gap-8 overflow-auto">
-      <div className="w-full flex items-center justify-center flex-col">
-        <h3 className="text-center font-semibold">
-          Average Money Spent and Received
-        </h3>
-        <div className="h-[200px] w-[400px] chart">
-          <Bar data={averageData} options={options} />
-        </div>
-      </div>
+    <div className="flex items-center  flex-col lg:flex-row justify-center lg:justify-between w-full gap-8 overflow-auto py-3 charts">
       <div className="w-full flex items-center justify-center flex-col">
         <h3 className="text-center font-semibold">
           Total Money Spent and Received
@@ -235,10 +206,18 @@ const Charts = ({ transactions }) => {
       </div>
       <div className="w-full flex items-center justify-center flex-col">
         <h3 className="text-center font-semibold">
-          Total Money on each Category
+          Average Money Spent and Received
         </h3>
-        <div className="h-[300px] w-[300px] chart">
-          <Pie data={pieData} options={pieOptions} />
+        <div className="h-[200px] w-[400px] chart">
+          <Bar data={averageData} options={options} />
+        </div>
+      </div>
+      <div className="w-full flex items-center justify-center flex-col chart">
+        <h3 className="text-center font-semibold">
+          Money Spent on each Category
+        </h3>
+        <div className="h-[200px] w-[400px] chart">
+          <Bar data={chartData} options={options} />
         </div>
       </div>
     </div>

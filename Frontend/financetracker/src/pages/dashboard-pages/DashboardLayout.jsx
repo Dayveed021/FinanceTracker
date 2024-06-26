@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./DashboardLayout.scss";
 import { logout } from "../../redux/auth/AuthSlice";
@@ -11,6 +11,12 @@ const DashboardLayout = ({ content }) => {
   function toggleMenu() {
     setToggle(!toggle);
   }
+  useEffect(() => {
+    if (window.innerWidth < 810) {
+      setToggle(false);
+    }
+  }, []);
+
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
