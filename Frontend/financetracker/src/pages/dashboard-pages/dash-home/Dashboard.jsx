@@ -76,8 +76,8 @@ const Content = () => {
           </div>
         </div>
       </div>
-      {modal && <div className="modal-overlay" onClick={handleModal}></div>}
-      <div className="absolute w-full flex items-end justify-center z-10">
+      {modal && <div className="modal-overlay"></div>}
+      <div className="fixed w-full left-0 flex items-start justify-center z-10 top-0">
         <div className="absolute w-full">
           {modal && (
             <TransactionModal

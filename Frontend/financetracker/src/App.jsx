@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import "./App.scss";
 import Register from "./pages/auth-pages/register/Register";
 import Dashboard from "./pages/dashboard-pages/dash-home/Dashboard";
@@ -26,6 +26,9 @@ function App() {
     <div>
       <ScrollToTop />
       <Routes>
+        {/* Default route to login */}
+        <Route path="/" element={<Navigate to="/login" />} />
+
         {/* AUTH-PAGES */}
         <Route
           path="/login"

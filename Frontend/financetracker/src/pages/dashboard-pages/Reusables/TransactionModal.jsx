@@ -59,12 +59,11 @@ const TransactionModal = ({ arg, editMode = false, transactionData = {} }) => {
     const transId = transactionData.id;
 
     if (editMode) {
-      // Ensure the ID is included for updates
-      dispatch(updateTransaction(transId, transData));
+      dispatch(updateTransaction({ transId, transData }));
     } else {
       dispatch(createTransaction(transData));
     }
-    // handleRefresh();
+    handleRefresh();
   };
 
   return (

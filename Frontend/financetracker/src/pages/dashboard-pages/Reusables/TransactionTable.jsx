@@ -162,10 +162,8 @@ const TransactionTable = ({ transactions = [] }) => {
           </button>
         </div>
       )}
-      {modal && (
-        <div className="modal-overlay" onClick={() => setModal(false)}></div>
-      )}
-      <div className="absolute w-full flex items-end justify-center z-10">
+      {modal && <div className="modal-overlay"></div>}
+      <div className="fixed top-0 left-0 w-full flex items-start justify-center z-10">
         <div className="absolute w-full">
           {modal && (
             <TransactionModal

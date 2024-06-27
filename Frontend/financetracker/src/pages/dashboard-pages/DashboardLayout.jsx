@@ -41,7 +41,7 @@ const DashboardLayout = ({ content }) => {
           <div className="md:w-[90%] sm:w-[50%] hidden  sm:flex items-center justify-center">
             <input
               type="text"
-              placeholder="Search transactions"
+              placeholder="Search transactions with categories"
               className="lg:w-[45%] w-full text-[14px] tracking-[1.2px]"
             />
           </div>
