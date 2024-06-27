@@ -1,6 +1,4 @@
-# transactions/urls.py
-
-from django.urls import path
+from django.urls import re_path, path
 from .views import transaction_list_create, transaction_detail
 
 urlpatterns = [

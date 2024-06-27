@@ -43,9 +43,9 @@ Authorization: Token 46c991d10b967da4f319a4301526242431863b16
 ### Transaction Requests ###
 
 # List transactions (GET request, requires authentication)
-POST {{base_url}}/transactions/
+GET {{base_url}}/transactions/
 Content-Type: application/json
-Authorization: Token e25c72cd58cdecb5001a47e772c75ef0bde9f3d1
+Authorization: Token 2a7da1b498820d268049d288f7ee57d726e236dc
 
 ###
 # Create a new transaction (POST request, requires authentication)
@@ -78,8 +78,9 @@ Authorization: e25c72cd58cdecb5001a47e772c75ef0bde9f3d1
   "description": "Monthly salary"
 }
 
+###
 # Delete a specific transaction (DELETE request, requires authentication)
-DELETE {{base_url}}/transactions/1/  # Replace '1' with the actual transaction ID
-Authorization: e25c72cd58cdecb5001a47e772c75ef0bde9f3d1
+DELETE {{base_url}}/transactions/4/
+Authorization: Token 2a7da1b498820d268049d288f7ee57d726e236dc
 
 
