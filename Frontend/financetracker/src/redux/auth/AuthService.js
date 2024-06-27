@@ -1,8 +1,9 @@
 import axios from "axios";
 
-const REGISTER_URL = "http://localhost:8000/users/signup";
-const LOGIN_URL = "http://localhost:8000/users/login";
-const UPDATE_URL = (user_id) => `http://localhost:8000/users/update/${user_id}`;
+const REGISTER_URL = "https://financetrackerbk.vercel.app/users/signup";
+const LOGIN_URL = "https://financetrackerbk.vercel.app/users/login";
+const UPDATE_URL = (user_id) =>
+  `https://financetrackerbk.vercel.app/users/update/${user_id}`;
 
 const register = async (userData) => {
   const response = await axios.post(REGISTER_URL, userData);

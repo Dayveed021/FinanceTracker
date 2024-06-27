@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const TRANSAC_API = "http://localhost:8000/transactions/";
-const GET_A_TRANSAC = "http://localhost:8000/transactions/1/";
+const TRANSAC_API = "https://financetrackerbk.vercel.app/transactions/";
+const GET_A_TRANSAC = "https://financetrackerbk.vercel.app/transactions/1/";
 
 const create_trans = async (transData) => {
   const user_token = JSON.parse(localStorage.getItem("token"));
@@ -24,7 +24,7 @@ const getall_trans = async () => {
 };
 
 const geta_trans = axios.create({
-  baseURL: "http://localhost:8000/",
+  baseURL: "https://financetrackerbk.vercel.app/",
 });
 
 const updatea_trans = async (transId, transData) => {
