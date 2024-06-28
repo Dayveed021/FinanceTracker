@@ -56,9 +56,8 @@ const TransactionModal = ({ arg, editMode = false, transactionData = {} }) => {
       date,
     };
 
-    const transId = transactionData.id;
-
     if (editMode) {
+      const transId = transactionData.id;
       dispatch(updateTransaction({ transId, transData }));
     } else {
       dispatch(createTransaction(transData));
@@ -155,12 +154,16 @@ const TransactionModal = ({ arg, editMode = false, transactionData = {} }) => {
               />
             </div>
             <button
-              className="bg-[#f28b40] w-fit p-2 flex items-center justify-center gap-1 font-medium rounded-md mt-4"
+              className="bg-[#f28b40] w-fit p-2 flex items-center justify-center gap-2 font-medium rounded-md mt-4 cursor-pointer"
               type="submit"
             >
               <span>
                 {editMode ? "Update transaction" : "Create transaction"}
               </span>
+              <Icon
+                icon={isLoading ? "eos-icons:loading" : ""}
+                style={{ color: "black" }}
+              />
             </button>
           </form>
         </div>

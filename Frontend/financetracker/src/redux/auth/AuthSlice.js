@@ -9,7 +9,7 @@ const initialState = {
   isError: false,
   isLoading: false,
   isSuccess: false,
-  isLoginSuccess: false, // specific flag for login success
+  isLoginSuccess: false,
   isUpdateSuccess: false,
   message: "",
 };

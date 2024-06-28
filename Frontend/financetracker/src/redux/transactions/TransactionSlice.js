@@ -10,7 +10,7 @@ const initialState = {
 };
 
 export const createTransaction = createAsyncThunk(
-  "transaction/create",
+  "transac/create",
   async (transData, thunkApi) => {
     try {
       return await transactionService.create_trans(transData);
@@ -27,7 +27,7 @@ export const createTransaction = createAsyncThunk(
 );
 
 export const getAllTransaction = createAsyncThunk(
-  "transaction/getAll",
+  "transac/getAll",
   async (_, thunkApi) => {
     try {
       return await transactionService.getall_trans();
@@ -44,7 +44,7 @@ export const getAllTransaction = createAsyncThunk(
 );
 
 export const updateTransaction = createAsyncThunk(
-  "transaction/update",
+  "transac/update",
   async ({ transId, transData }, thunkApi) => {
     try {
       return await transactionService.updatea_trans(transId, transData);
@@ -61,7 +61,7 @@ export const updateTransaction = createAsyncThunk(
 );
 
 export const getATransaction = createAsyncThunk(
-  "transaction/getATrans",
+  "transac/getATrans",
   async (transId) => {
     response = await transactionService.geta_trans(`transactions/${transId}/`);
     console.log(response.data);
@@ -70,7 +70,7 @@ export const getATransaction = createAsyncThunk(
 );
 
 export const deleteTransaction = createAsyncThunk(
-  "transaction/delete",
+  "transac/delete",
   async (transId, thunkApi) => {
     try {
       return await transactionService.delete_trans(transId);
@@ -87,7 +87,7 @@ export const deleteTransaction = createAsyncThunk(
 );
 
 export const transactionSlice = createSlice({
-  name: "transaction",
+  name: "transac",
   initialState,
   reducers: {
     reset: (state) => {
