@@ -6,7 +6,7 @@ const ResetPass = () => {
   return (
     <div>
       <Navbar />
-      <div className="justify-center items-center flex pt-32">
+      <div className="justify-center items-center flex pt-16 md:pt-32">
         <div className="md:shadow-lg w-full  md:w-[500px] p-4 pb-20 rounded-2xl">
           <div className="flex justify-center gap-4 items-center pt-4  ">
             <Icon
