@@ -168,7 +168,7 @@ const TransactionModal = ({ arg, editMode = false, transactionData = {} }) => {
               {description.length + "/40"}
             </span>
             <button
-              className="bg-[#f28b40] w-fit p-2 flex items-center justify-center gap-2 font-medium rounded-md mt-2 cursor-pointer"
+              className="bg-[#f28b40] w-fit p-2 flex items-center justify-center gap-2 font-medium rounded-md mt-1 cursor-pointer"
               type="submit"
             >
               <span>
