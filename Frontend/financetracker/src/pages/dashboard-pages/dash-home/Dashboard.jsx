@@ -77,7 +77,7 @@ const Content = () => {
         </div>
       </div>
       {modal && <div className="modal-overlay"></div>}
-      <div className="fixed w-full left-0 flex items-start justify-center z-10 top-0">
+      <div className="fixed w-full left-0 flex items-start justify-center z-10 top-[-100px] md:top-[-50px]">
         <div className="absolute w-full">
           {modal && (
             <TransactionModal

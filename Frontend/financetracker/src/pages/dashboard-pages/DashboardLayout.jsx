@@ -50,13 +50,13 @@ const DashboardLayout = ({ content }) => {
           </div>
         </div>
       </header>
-      <div className=" w-full flex items-start justify-center gap-5 relative">
+      <div className=" w-full flex items-start justify-center gap-5 relative h-[75vh] lg:h-[84vh] overflow-hidden">
         <div
-          className={` flex item-start justify-between shadow-[#f28b40] shadow-sm w-[250px] md:bg-gray-600 rounded-xl h-[84vh] flex-col ${
+          className={` flex item-start justify-between shadow-[#f28b40] shadow-sm w-[250px] md:bg-gray-600 rounded-xl flex-col h-full ${
             toggle ? "sidebar" : " hidden"
           }`}
         >
-          <ul className=" w-full pt-10 flex item-start justify-start flex-col list-none gap-4 p-3">
+          <ul className=" w-full pt-10 flex item-start justify-start flex-col list-none gap-4 p-3 h-full">
             <NavLink
               to="/home"
               className={({ isActive }) => (isActive ? "active" : "not-active")}
@@ -88,7 +88,7 @@ const DashboardLayout = ({ content }) => {
             <span className="text-white">Logout</span>
           </div>
         </div>
-        <div className="w-full h-[84vh]  shadow-[#f28b40] shadow-sm rounded-xl  bg-gray-600 p-5 overflow-auto">
+        <div className="w-full h-full lg:h-[84vh]  shadow-[#f28b40] shadow-sm rounded-xl  bg-gray-600 p-5 overflow-auto">
           {content}
         </div>
       </div>
