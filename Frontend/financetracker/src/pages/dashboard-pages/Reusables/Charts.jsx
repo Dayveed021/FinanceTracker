@@ -213,9 +213,7 @@ const Charts = ({ transactions }) => {
         </div>
       </div>
       <div className="w-full flex items-center justify-center flex-col chart">
-        <h3 className="text-center font-semibold">
-          Money Spent on each Category
-        </h3>
+        <h3 className="text-center font-semibold">Overview on each Category</h3>
         <div className="h-[200px] w-[400px] chart">
           <Bar data={chartData} options={options} />
         </div>
