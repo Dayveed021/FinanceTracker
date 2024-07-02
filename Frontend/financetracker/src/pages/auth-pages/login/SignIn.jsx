@@ -34,7 +34,7 @@ const SignIn = () => {
     e.preventDefault();
 
     const userData = {
-      username,
+      username: username.toLowerCase(),
       password,
     };
     dispatch(login(userData));

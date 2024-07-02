@@ -45,8 +45,8 @@ const Content = () => {
     e.preventDefault();
 
     const userData = {
-      email,
-      username,
+      email: email.toLowerCase(),
+      username: username.toLowerCase(),
     };
 
     dispatch(updateUser(userData));

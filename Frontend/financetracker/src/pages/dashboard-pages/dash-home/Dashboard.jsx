@@ -9,16 +9,20 @@ import TransactionTable from "../Reusables/TransactionTable";
 import Charts from "../Reusables/Charts";
 
 const Dashboard = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   return (
     <div>
-      <DashboardLayout content={<Content />} />
+      <DashboardLayout
+        content={<Content searchTerm={searchTerm} />}
+        setSearchTerm={setSearchTerm}
+      />
     </div>
   );
 };
 
 export default Dashboard;
 
-const Content = () => {
+const Content = ({ searchTerm }) => {
   const user = useSelector((state) => state.auth.user);
 
   const [modal, setModal] = useState(false);
@@ -38,6 +42,16 @@ const Content = () => {
   useEffect(() => {
     dispatch(getAllTransaction());
   }, [dispatch]);
+
+  const filteredTransactions = data.filter((transaction) => {
+    const search = searchTerm.toLowerCase();
+    return (
+      (transaction.category &&
+        transaction.category.toLowerCase().includes(search)) ||
+      (transaction.type && transaction.type.toLowerCase().includes(search)) ||
+      (transaction.amount && transaction.amount.includes(search))
+    );
+  });
 
   const username = user?.user?.username
     ? user.user.username.charAt(0).toUpperCase() + user.user.username.slice(1)
@@ -72,7 +86,7 @@ const Content = () => {
             <Charts transactions={data} />
           </div>
           <div className="w-full overflow-auto">
-            <TransactionTable transactions={data} />
+            <TransactionTable transactions={filteredTransactions} />
           </div>
         </div>
       </div>

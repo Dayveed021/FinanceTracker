@@ -10,6 +10,10 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const TransactionModal = ({ arg, editMode = false, transactionData = {} }) => {
+  const truncateDescription = (desc) => {
+    return desc.length > 40 ? desc.slice(0, 40) : desc;
+  };
+
   const [amount, setAmount] = useState(
     transactionData ? transactionData.amount : ""
   );
@@ -18,7 +22,7 @@ const TransactionModal = ({ arg, editMode = false, transactionData = {} }) => {
     transactionData ? transactionData.category : ""
   );
   const [description, setDescription] = useState(
-    transactionData ? transactionData.description : ""
+    transactionData ? truncateDescription(transactionData.description) : ""
   );
   const [date, setDate] = useState(transactionData ? transactionData.date : "");
 
@@ -99,6 +103,7 @@ const TransactionModal = ({ arg, editMode = false, transactionData = {} }) => {
                 className="auth-input"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
+                required
               />
             </div>
             <div className="w-full flex items-start justify-center gap-1 flex-col">
@@ -107,6 +112,7 @@ const TransactionModal = ({ arg, editMode = false, transactionData = {} }) => {
                 className="auth-input"
                 value={type}
                 onChange={(e) => setType(e.target.value)}
+                required
               >
                 <option value="" disabled>
                   Select the type of transaction
@@ -121,6 +127,7 @@ const TransactionModal = ({ arg, editMode = false, transactionData = {} }) => {
                 className="auth-input"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
+                required
               >
                 <option value="" disabled>
                   Select the type of transaction
@@ -141,6 +148,7 @@ const TransactionModal = ({ arg, editMode = false, transactionData = {} }) => {
                 className="auth-input"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
+                required
               />
             </div>
             <div className=" w-full flex items-start justify-center gap-1 flex-col">
@@ -150,9 +158,15 @@ const TransactionModal = ({ arg, editMode = false, transactionData = {} }) => {
                 placeholder="Describe this transaction"
                 className="auth-input"
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={(e) =>
+                  setDescription(truncateDescription(e.target.value))
+                }
+                required
               />
             </div>
+            <span className="w-full flex justify-end">
+              {description.length + "/40"}
+            </span>
             <button
               className="bg-[#f28b40] w-fit p-2 flex items-center justify-center gap-2 font-medium rounded-md mt-4 cursor-pointer"
               type="submit"

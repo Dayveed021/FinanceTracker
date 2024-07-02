@@ -40,8 +40,8 @@ const Register = () => {
       toast.error("Passwords do not match");
     } else {
       const userData = {
-        username,
-        email,
+        username: username.toLowerCase(),
+        email: email.toLowerCase(),
         password,
       };
       dispatch(register(userData));

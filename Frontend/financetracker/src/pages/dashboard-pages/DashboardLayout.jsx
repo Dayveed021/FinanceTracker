@@ -5,7 +5,7 @@ import "./DashboardLayout.scss";
 import { logout } from "../../redux/auth/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const DashboardLayout = ({ content }) => {
+const DashboardLayout = ({ content, setSearchTerm }) => {
   const [toggle, setToggle] = useState(true);
 
   function toggleMenu() {
@@ -24,6 +24,11 @@ const DashboardLayout = ({ content }) => {
   const logOut = () => {
     dispatch(logout());
   };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   return (
     <div className=" w-full p-3 flex items-start justify-center gap-5 flex-col">
       <header className=" w-full flex items-center justify-center sm:gap-8 gap-4">
@@ -41,8 +46,9 @@ const DashboardLayout = ({ content }) => {
           <div className="md:w-[90%] sm:w-[50%] hidden  sm:flex items-center justify-center">
             <input
               type="text"
-              placeholder="Search transactions with categories"
+              placeholder="Search transactions by categories, type or ammount"
               className="lg:w-[45%] w-full text-[14px] tracking-[1.2px]"
+              onChange={handleSearch}
             />
           </div>
           <div className="flex items-center justify-center rounded-full bg-black h-10 w-10 text-white">
